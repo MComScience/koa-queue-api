@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Oauth2 Login</title>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+  <link rel="stylesheet" href="/public/css/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/public/css/style.css">
+  <!-- import CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="/public/js/authorize.js"></script>
+</head>
+
+<body class="blank">
+  <div class="color-line"></div>
+  <div id="app" class="login-container" style="max-width: 500px;">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="text-center m-b-md">
+          <h3></h3>
+          <small></small>
+        </div>
+        <div class="hpanel">
+          <div :class="[loading ? 'panel-body hidden' : 'panel-body']" style="box-shadow: 0 6px 17px 0 rgba(0,0,0,.1);">
+            <form v-if="user" id="form-authorize" action="/oauth/authorize" method="POST">
+              <h2 class="text-center">ให้สิทธิการเข้าถึง</h2>
+              <div class="logo" style="margin-bottom: 10px;">
+                <img src="/public/images/oauth2_logo.png" alt="" class="img-rounded center-block" width="100">
+              </div>
+              <p class="text-center">
+                <b>Oauth2 Login</b>
+              </p>
+              <div class="my-client">
+                <p class="text-center">
+                  ผู้ให้บริการ: {{ client.name }}
+                </p>
+                <p class="text-center">
+                  รายละเอียด
+                </p>
+              </div>
+              <p style="font-weight: 600;font-size: 13px;color: #444;text-align: center;line-height: 20px;">
+                บริการนี้ร้องขอสิทธิการเข้าถึงต่อไปนี้
+              </p>
+              <ul>
+                <li>
+                  <p>
+                    <strong>ข้อมูลโปรไฟล์</strong>
+                  </p>
+                  <p>
+                    ชื่อ ({{ user.name }}), รูปโปรไฟล์, สถานะ
+                  </p>
+                </li>
+              </ul>
+
+              <br>
+              <div class="row">
+                <!-- name of decline button **must be** decline -->
+                <div class="col-xs-6">
+                  <button title="ยกเลิก" type="submit" name="decline"
+                    class="btn btn-block btn-lg btn-default">ยกเลิก</button>
+                </div>
+                <!-- name of accept button **must be** accept -->
+                <div class="col-xs-6">
+                  <button title="อนุญาต" type="submit" name="accept"
+                    class="btn btn-block btn-lg btn-success">อนุญาต</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    var urlParams = new URLSearchParams(window.location.search);
+    var formAuthorize = document.getElementById("form-authorize");
+
+    formAuthorize.setAttribute("action", decodeURIComponent(`/v1/oauth2/authorize?${urlParams.toString()}`));
+  </script>
+</body>
+
+</html>

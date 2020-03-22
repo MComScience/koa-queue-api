@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login</title>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+  <link rel="stylesheet" href="/public/css/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/public/css/style.css">
+  <!-- import CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <!-- import JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="/public/js/login.js"></script>
+</head>
+
+<body class="blank">
+  <div class="color-line"></div>
+  <div id="app" class="login-container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="text-center m-b-md">
+          <h3>PLEASE LOGIN TO APP</h3>
+          <small>This is the best app ever!</small>
+        </div>
+        <div class="hpanel">
+          <div class="panel-body">
+            <form @submit.prevent="onSubmit" id="loginForm">
+              <div class="form-group">
+                <label class="control-label" for="username">Username</label>
+                <input v-model="form.username" @keypress="error = ''" type="text" placeholder="example@gmail.com"
+                  title="Please enter you username" required="" name="username" id="username" class="form-control">
+                <span class="help-block small"></span>
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="password">Password</label>
+                <input v-model="form.password" @keypress="error = ''" type="password" title="Please enter your password"
+                  placeholder="******" required="" value="" name="password" id="password" class="form-control">
+                <label v-show="error" class="error" for="">
+                  {{ error }}
+                </label>
+                <span class="help-block small"></span>
+              </div>
+              <el-button :disabled="!form.username || !form.password" type="success" native-type="submit"
+                class="btn-block" :loading="submitted" round>Login</el-button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <strong>OAUTH2 SERVER</strong><br />
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
